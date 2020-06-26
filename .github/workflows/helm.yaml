@@ -16,14 +16,16 @@ on:
 
 jobs:
     # https://github.com/nektos/act
-    name: helm_e2e
     shellcheck:
+        name: Shellcheck Helm Charts
+        runs-on: ubuntu-latest
         if: github.event_name == 'pull_request'
         container: koalaman/shellcheck-alpine
         steps:
             - uses: actions/checkout@v2
             - run: shellcheck -x test/e2e-kind.sh
     charts-e2e:
+        name: Run E2E Tests on the Helm Chart
         runs-on: ubuntu-latest
         needs: [shellcheck]
         env:
