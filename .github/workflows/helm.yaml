@@ -28,12 +28,12 @@ jobs:
         needs: [shellcheck]
         env:
             CHART_TESTING_TAG: v2.3.3
-            K8S_VERSION: v1.14.2
+            K8S_VERSION: v1.18.0
             KIND_VERSION: v0.3.0
         steps:
             - uses: actions/checkout@v2
             - uses: quay.io/helmpack/chart-testing
-              run: test/e2e-kind.sh
+            - run: test/e2e-kind.sh
     # publish:
     #   runs-on: ubuntu-latest
     #   if: github.event_name == 'push'

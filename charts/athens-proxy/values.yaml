@@ -2,7 +2,9 @@ replicaCount: 1
 image:
   registry: docker.io
   repository: gomods/athens
-  tag: v0.9.0
+  # this defaults to the Chart.yaml's appVersion. 
+  # You can override this when you helm install
+  tag: ''
 
   ## Specify a imagePullPolicy
   ## Defaults to 'Always' if image tag is 'latest', else set to 'IfNotPresent'
