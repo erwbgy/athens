@@ -1,0 +1,45 @@
+name: helm-charts
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+    paths:
+      - 'charts/*'
+      - 'test/e2e-kind.sh'
+
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - "charts/*"
+
+# https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions
+
+jobs:
+    # https://github.com/nektos/act
+    name: helm_e2e
+    shellcheck:
+        if: github.event_name == 'pull_request'
+        container: koalaman/shellcheck-alpine
+        steps:
+            - uses: actions/checkout@v2
+            - run: shellcheck -x test/e2e-kind.sh
+    charts-e2e:
+        runs-on: ubuntu-latest
+        needs: [shellcheck]
+        env:
+            CHART_TESTING_TAG: v2.3.3
+            K8S_VERSION: v1.14.2
+            KIND_VERSION: v0.3.0
+        steps:
+            - uses: actions/checkout@v2
+            - uses: quay.io/helmpack/chart-testing
+              run: test/e2e-kind.sh
+    # publish:
+    #   runs-on: ubuntu-latest
+    #   if: github.event_name == 'push'
+    #   container: alpine/helm
+
+        #https://github.com/gomods/drone-helm
+        # https://github.com/gomods/drone-helm/blob/main/push-helm-charts.sh
+        # https://hub.docker.com/r/alpine/helm
+        # https://github.com/helm/chart-releaser-action
