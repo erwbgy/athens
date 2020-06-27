@@ -2,7 +2,7 @@ replicaCount: 1
 image:
   registry: docker.io
   repository: gomods/athens
-  # this defaults to the Chart.yaml's appVersion. 
+  # this defaults to the Chart.yaml's appVersion.
   # You can override this when you helm install
   tag: ''
 
