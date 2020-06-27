@@ -20,9 +20,9 @@ jobs:
         runs-on: ubuntu-latest
         env:
             CHART_TESTING_IMAGE: quay.io/helmpack/chart-testing
-            CHART_TESTING_TAG: v2.3.3
+            CHART_TESTING_TAG: v2.4.1
             K8S_VERSION: v1.18.0
-            KIND_VERSION: v0.3.0
+            KIND_VERSION: v0.8.1
         steps:
             - uses: actions/checkout@v2
             - run: git fetch --prune --unshallow
